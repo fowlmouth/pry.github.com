@@ -1,0 +1,30 @@
+@import "base.scss";
+@import "typography.scss";
+@import "header.scss";
+@import "navigation.scss";
+@import "body.scss";
+@import "footer.scss";
+
+body
+{
+  background: image-url('background.jpg') repeat;
+  color: black;
+}
+
+div.wrap
+{
+  @include container;
+  margin: 0 auto 2em;
+}
+
+pre
+{
+  background: black;
+  color: white;
+  font-size: .9em;
+  padding: .4em;
+
+  @include border-radius(2px);
+  code { line-height: 1.2em }
+}
+

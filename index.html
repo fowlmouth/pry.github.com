@@ -1,0 +1,237 @@
+---
+# Jekyll wants this YAML front matter to parse the document.
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>Pry - an IRB alternative and runtime developer console</title>
+    <meta name="description" content="Pry is a powerful alternative to the standard IRB shell for Ruby.">
+
+    <link href="http://fonts.googleapis.com/css?family=Maven+Pro&v1" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" tutle="Sunburst" href="http://yandex.st/highlightjs/6.0/styles/sunburst.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="fork_me ribbon">
+        <a href="http://github.com/pry/pry" rel="external"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://assets0.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_gray_6d6d6d.png&path=" alt="Fork me on GitHub"></a>
+      </div>
+
+      <header>
+        <div id="logo">
+          <h1>Pry — Get to the Code</h1>
+          <img src="/images/pry_logo.png" alt="Pry Ruby Logo"/>
+        </div>
+
+        <div class="sponsors">
+          <h2>Sponsored by</h2>
+          <a href="http://www.atomicobject.com/"><img src="/images/atomic_object.png" alt="Atomic Object"/></a>
+        </div>
+
+        <div class="support">
+          <h2>Support pry!</h2>
+          <p>
+            Pry is currently <b>looking for sponsorship</b>, please contact the <a href="https://github.com/banister/">project maintainer</a> if your company would like to
+            be associated with the project.
+          </p>
+        </div>
+
+        <p class="infobox">
+          Pry is a <em>powerful</em> alternative to the standard IRB shell for
+          Ruby.  It features <em>syntax highlighting</em>, a flexible <em>plugin
+            architecture</em>, <em>runtime invocation</em> and  <em>source and
+            documentation browsing</em>.
+        </p>
+
+        {% include navigation.html %}
+      </header>
+
+      <article>
+        <h1>Quickstart</h1>
+
+        <p>
+          Install Pry:
+        </p>
+        {% highlight bash %}{% include code/install.sh %}{% endhighlight %}
+
+        <p>
+          Try it out: (Displaying source for Pathname#unlink)
+        </p>
+        {% highlight ruby %}{% include code/tryout.rb %}{% endhighlight %}
+
+        <p>
+          For comprehensive coverage of Pry's features please
+          <a href="https://github.com/pry/pry/wiki"><strong>check out the Wiki</strong></a>.
+        </p>
+      </article>
+
+      <article>
+        <h1>Introductory screencast</h1>
+        <p>
+          It is recommended you watch the following screencast put
+          together by <a href="https://github.com/joshcheek">Joshua
+          Cheek</a>. It includes instructions on installing Pry as
+          well as some coverage of core features:
+
+          <center>
+            <iframe src="http://player.vimeo.com/video/26391171?title=0&amp;byline=0&amp;portrait=0"
+                    width="633" height="475" frameborder="0"></iframe>
+          </center>
+        </p>
+      </article>
+
+      <article>
+        <h1>Features</h1>
+        <p>
+          Pry is written from scratch to provide a number of advanced features,
+          some of these include:
+        </p>
+
+        <ul>
+          <li>Source code browsing (including core C source with the pry-doc gem)</li>
+          <li>Navigation around state (cd, ls and friends)</li>
+          <li>Rubinius core source browing</li>
+          <li>Documentation browsing</li>
+          <li>Live help system</li>
+          <li>Open methods in editors (edit-method Class#method)</li>
+          <li>Syntax highlighting</li>
+          <li>Command shell integration (start editors, run git, and rake from within Pry)</li>
+          <li>Gist integration</li>
+          <li>Runtime invocation (use Pry as a developer console or debugger)</li>
+          <li>Exotic object support (BasicObject instances, IClasses, ...)</li>
+          <li>A powerful and flexible command system</li>
+          <li>Ability to view and replay history</li>
+          <li>Many convenience commands inspired by IPython, Smalltalk and other advanced REPLs</li>
+        </ul>
+
+        <p>
+          Pry also aims to be more than an IRB replacement; it is an attempt to
+          bring REPL driven programming to the Ruby language. It is currently not
+          as powerful as tools like SLIME for lisp, but that is the general
+          direction Pry is heading.
+        </p>
+
+        <p>
+          Pry is also fairly flexible and allows significant user customization
+          making it a good choice for implementing custom shells.
+        </p>
+      </article>
+
+      <article>
+        <h1>More examples</h1>
+
+        <h2>Runtime invocation</h2>
+        <p>
+          Pry can be invoked in the middle of a running program. It opens a Pry
+          session at the point it's called and makes all program state at that
+          point available. When the session ends the program continues with any
+          modifications you made to it.
+        </p>
+
+        <p>
+          This functionality can be used for such things as: debugging,
+          implementing developer consoles and applying hot patches.
+        </p>
+
+        {% highlight ruby %}{% include code/runtime.rb %}{% endhighlight %}
+
+        <p>
+          Pry session:
+        </p>
+
+        {% highlight ruby %}{% include code/session.rb %}{% endhighlight %}
+
+        <h2>Command Shell Integration</h2>
+        <p>
+          A line of input that begins with a '.' will be forwarded to the command
+          shell. This enables us to navigate the file system, spawn editors, and
+          run git and rake directly from within Pry.
+        </p>
+
+        <p>
+          Further, we can use the shell-mode command to incorporate the present
+          working directory into the Pry prompt and bring file name completion.
+          We can also interpolate Ruby code directly into the shell by using the
+          normal #{} string interpolation syntax.
+        </p>
+
+        <p>
+          In the code below we're going to switch to shell-mode and edit the .pryrc
+          file in the home directory. We'll then cat its contents and reload the
+          file.
+        </p>
+        {% highlight ruby %}{% include code/pyrc.rb %}{% endhighlight %}
+      </article>
+
+      <article>
+        <h1>Learn more</h1>
+        <p>
+          There is a significant amount of information on Pry
+          available. After watching the screencast (above) you should then
+          check out the folllowing links, especially the Wiki:
+        </p>
+
+        {% include navigation.html %}
+      </article>
+
+      <article>
+        <h1>Please support Pry!</h1>
+        <p class="donate">
+          If you liked Pry and found it useful <em>please consider
+          making a donation</em> to support its
+          continued development!<br/></br>
+
+          Pry was a huge amount of work and every dollar
+          received is encouraging!
+        </p>
+      </article>
+
+      <article>
+        <h1>Credits</h1>
+        <p>
+          Pry is primarily the work
+          of John Mair (aka banisterfiend; <a href="https://github.com/banister">github</a>, <a href="https://twitter.com/banisterfiend">twitter</a>, <a href="http://banisterfiend.wordpress.com">blog</a>). The project is also aided by a healthy
+          number
+          of <a href="https://github.com/pry/pry/contributors">contributors.</a><br/><br/>
+          To participate in Pry's development (and get your name on
+          the list!) see the wiki article on <a href="https://github.com/pry/pry/wiki/Contributing">how to contribute</a>
+        </p>
+      </article>
+    </div>
+
+    <footer>
+      <p>
+        Pry comes to you from the mind of <a href="https://github.com/banister">John Mair</a> who also brought you
+        <a href="https://github.com/banister/texplay">TexPlay</a>,
+        <a href="https://github.com/banister/method_source">MethodSource</a>,
+        <a href="https://github.com/banister/devil">Devil</a>,
+        <a href="https://github.com/banister/remix">Remix</a> &amp;
+        <a href="https://github.com/banister/free">Free</a>.
+      </p>
+
+      <p>
+        <a href="http://ippa.se">HTML5 by ippa</a> |
+        Pry logo by <a href="http://www.studiokun.co.cc">STUDIOKUN</a>
+      </p>
+    </footer>
+
+    <script src="http://yandex.st/highlightjs/6.0/highlight.min.js"></script>
+    <script>
+      function $(selector){
+        var elements = Array.prototype.slice.call( document.querySelectorAll(selector) )
+        var items = selector.split(" ")
+        return (items[items.length-1][0] == "#") ? elements[0] : elements // Return single element if fetching a
+      }
+      $("code").forEach( function(tag) {
+        tag.innerHTML = tag.innerHTML.replace(/^\n/, "")
+        hljs.highlightBlock(tag, '    ');
+      });
+    </script>
+  </body>
+</html>
